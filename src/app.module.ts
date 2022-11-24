@@ -21,7 +21,7 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
     ),
     MongooseModule.forFeature([
       {
-        name: 'Auth',
+        name: 'user',
         schema: AuthSchema,
       },
     ]),

@@ -1,14 +1,14 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Auth } from './auth.model';
+import { User } from './auth.model';
 const bcrypt = require('bcryptjs');
 const JWT = require('jsonwebtoken');
 
 @Injectable()
 export class AuthService {
   // private auth: Auth[] = [];
-  constructor(@InjectModel('Auth') private readonly authModel: Model<Auth>) {}
+  constructor(@InjectModel('user') private readonly authModel: Model<User>) {}
   async LoginUser(email: string, password: string) {
     const user = await this.authModel
       .findOne({ email: email })
