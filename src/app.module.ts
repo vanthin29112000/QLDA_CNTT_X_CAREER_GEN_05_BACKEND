@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -9,7 +8,6 @@ import { AppService } from './app.service';
   providers: [AppService],
 })
 export class AppModule {}
-=======
 import {
   Module,
   NestModule,
@@ -53,4 +51,3 @@ export class AppModule implements NestModule {
       .forRoutes('auth');
   }
 }
->>>>>>> c193428462ef8cb8c948879e455e2a19f5cc46b9
