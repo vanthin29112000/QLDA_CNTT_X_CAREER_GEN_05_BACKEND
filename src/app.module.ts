@@ -1,6 +1,6 @@
 
 import {
-  Module,
+	Module,
   NestModule,
   RequestMethod,
   MiddlewareConsumer,
@@ -13,6 +13,8 @@ import { AuthModule } from './auth/auth.module';
 import { logger } from './common/middleware/checkTokenFirebase';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { ProductModule } from './product/product.module';
+import { FeedsModule } from './feeds/feeds.module';
+import { FeedsController } from './feeds/feeds.controller';
 
 const MONGODBLOCAL = 'mongodb://localhost:27017/nest'
 const MONGODBHOST = 'mongodb+srv://vanthin1203:thin0909679602@cluster0.epzf5.mongodb.net/?retryWrites=true&w=majority'
@@ -20,6 +22,7 @@ const MONGODBHOST = 'mongodb+srv://vanthin1203:thin0909679602@cluster0.epzf5.mon
   imports: [
     AuthModule,
     ProductModule,
+		FeedsModule,
     MongooseModule.forRoot(MONGODBLOCAL),
     MongooseModule.forFeature([
       {
