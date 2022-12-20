@@ -6,7 +6,7 @@ describe('FeedsController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [FeedsController],
+      controllers: [FeedsController]
     }).compile();
 
     controller = module.get<FeedsController>(FeedsController);
