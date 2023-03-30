@@ -15,6 +15,7 @@ export function logger(req, res, next) {
     .auth()
     .verifyIdToken(token)
     .then(async function (decodedToken) {
+      req.user = decodedToken;
       next();
     })
     .catch(function (error) {

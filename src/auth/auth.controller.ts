@@ -10,8 +10,9 @@ export class AuthController {
   async LoginUser(
     @Body('password') password: string,
     @Body('email') email: string,
+    @User() req,
   ) {
-    const user = await this.authService.LoginUser(email, password);
+    const user = await this.authService.LoginUser(email, password, req);
     return { user };
   }
 

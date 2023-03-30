@@ -9,7 +9,13 @@ const JWT = require('jsonwebtoken');
 export class AuthService {
   // private auth: Auth[] = [];
   constructor(@InjectModel('user') private readonly authModel: Model<User>) {}
-  async LoginUser(email: string, password: string) {
+  async LoginUser(email: string, password: string, req) {
+    if (!req.email_verified) {
+      throw new HttpException(
+        'Email chưa được xác thực vui lòng xác thực email của bạn',
+        400,
+      );
+    }
     const user = await this.authModel
       .findOne({ email: email })
       .select('-password ');
@@ -37,7 +43,7 @@ export class AuthService {
   ) {
     const userExist = await this.authModel.findOne({ email });
     if (userExist) {
-      throw new HttpException('Email already exists', 400);
+      throw new HttpException('Email đã được đăng kí', 400);
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -54,9 +60,10 @@ export class AuthService {
     const userTemp = await this.authModel
       .findOne({ email: email })
       .select('-password');
+
     return {
       user: userTemp,
-      token: JWT.sign({ email }, 'Ma bi mat', { expiresIn: '1d' }),
+      // token: JWT.sign({ email }, 'Ma bi mat', { expiresIn: '1d' }),
     };
   }
 
@@ -72,7 +79,7 @@ export class AuthService {
       .select('-password ');
     const tokenSign = JWT.sign({ email }, 'Ma bi mat', { expiresIn: '1d' });
     if (user) {
-      console.log(user, tokenSign);
+      // console.log(user, tokenSign);
       return { user: user, token: tokenSign };
     } else {
       const salt = await bcrypt.genSalt(10);
