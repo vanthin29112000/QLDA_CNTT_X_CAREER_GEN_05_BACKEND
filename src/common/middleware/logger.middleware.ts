@@ -20,7 +20,7 @@ export class LoggerMiddleware implements NestMiddleware {
         const resultVerify = JWT.verify(token, 'Ma bi mat');
         const user = await this.authModel
           .findOne({
-            email: resultVerify.email,
+            email: resultVerify.email
           })
           .select('-password ');
 

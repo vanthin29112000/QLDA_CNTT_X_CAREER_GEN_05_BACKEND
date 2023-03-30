@@ -29,7 +29,7 @@ export class AuthService {
     } else {
       return {
         user: user,
-        token: JWT.sign({ email }, 'Ma bi mat', { expiresIn: '1d' }),
+        token: JWT.sign({ email }, 'Ma bi mat', { expiresIn: '1d' })
       };
     }
   }
@@ -39,7 +39,7 @@ export class AuthService {
     password: string,
     name: string,
     phone: string,
-    token: string,
+    token: string
   ) {
     const userExist = await this.authModel.findOne({ email });
     if (userExist) {
@@ -53,7 +53,7 @@ export class AuthService {
       password: passwordHash,
       role: 0,
       name: name,
-      phone: phone,
+      phone: phone
     });
 
     const result = await user.save();
@@ -63,7 +63,11 @@ export class AuthService {
 
     return {
       user: userTemp,
+<<<<<<< HEAD
       // token: JWT.sign({ email }, 'Ma bi mat', { expiresIn: '1d' }),
+=======
+      token: JWT.sign({ email }, 'Ma bi mat', { expiresIn: '1d' })
+>>>>>>> dev-dat
     };
   }
 
@@ -72,7 +76,7 @@ export class AuthService {
     name: string,
     phone: string,
     avatar: string,
-    token: string,
+    token: string
   ) {
     const user = await this.authModel
       .findOne({ email: email })
@@ -90,7 +94,7 @@ export class AuthService {
         role: 0,
         name: name,
         phone: phone,
-        avatar: avatar,
+        avatar: avatar
       });
       const result = await tempUser.save();
 
@@ -100,7 +104,7 @@ export class AuthService {
 
       return {
         user: authTemp,
-        token: tokenSign,
+        token: tokenSign
       };
     }
   }

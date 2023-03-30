@@ -16,57 +16,57 @@ export const AuthSchema = new mongoose.Schema({
       mainAddress: String,
       district: { idDistrict: String, nameDistrict: String },
       ward: { idWard: String, nameWard: String },
-      city: { idCity: String, nameCity: String },
+      city: { idCity: String, nameCity: String }
     }),
     default: {
       mainAddress: '',
       district: { idDistrict: '', nameDistrict: '' },
       ward: { idWard: '', nameWard: '' },
-      city: { idCity: '', nameCity: '' },
-    },
+      city: { idCity: '', nameCity: '' }
+    }
   },
   block: {
     type: Object({
       isBLocking: Boolean,
       dateBLock: Date,
-      isUserBlock: mongoose.Schema.Types.ObjectId,
+      isUserBlock: mongoose.Schema.Types.ObjectId
     }),
-    default: { isBLocking: false },
+    default: { isBLocking: false }
   },
   shoppingCart: [
     {
       idProduct: mongoose.Schema.Types.ObjectId,
-      qty: Number,
-    },
-  ],
+      qty: Number
+    }
+  ]
 });
 export interface User extends mongoose.Document {
-  email: String;
-  password: String;
-  name: String;
-  gender: String;
+  email: string;
+  password: string;
+  name: string;
+  gender: string;
   birthday: Date;
-  phone: String;
-  avatar: String;
+  phone: string;
+  avatar: string;
   dateCreated: Date;
-  totalCost: Number;
-  qtyPurchased: Number;
-  role: Number; //0 : user , 1 : admin
+  totalCost: number;
+  qtyPurchased: number;
+  role: number; //0 : user , 1 : admin
   address: {
-    mainAddress: String;
-    district: { idDistrict: String; nameDistrict: String };
-    ward: { idWard: String; nameWard: String };
-    city: { idCity: String; nameCity: String };
+    mainAddress: string;
+    district: { idDistrict: string; nameDistrict: string };
+    ward: { idWard: string; nameWard: string };
+    city: { idCity: string; nameCity: string };
   };
   block: {
-    isBLocking: Boolean;
+    isBLocking: boolean;
     dateBLock: Date;
     isUserBlock: mongoose.Schema.Types.ObjectId;
   };
   shoppingCart: [
     {
       idProduct: mongoose.Schema.Types.ObjectId;
-      qty: Number;
-    },
+      qty: number;
+    }
   ];
 }

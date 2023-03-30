@@ -9,8 +9,12 @@ export class AuthController {
   @Post('/login')
   async LoginUser(
     @Body('password') password: string,
+<<<<<<< HEAD
     @Body('email') email: string,
     @User() req,
+=======
+    @Body('email') email: string
+>>>>>>> dev-dat
   ) {
     const user = await this.authService.LoginUser(email, password, req);
     return { user };
@@ -22,14 +26,14 @@ export class AuthController {
     @Body('password') password: string,
     @Body('name') name: string,
     @Body('phone') phone: string,
-    @Body('token') token: string,
+    @Body('token') token: string
   ) {
     const user = await this.authService.RegisterUser(
       email,
       password,
       name,
       phone,
-      token,
+      token
     );
     return { user };
   }
@@ -45,14 +49,14 @@ export class AuthController {
     @Body('name') name: string,
     @Body('phone') phone: string,
     @Body('token') token: string,
-    @Body('avatar') avatar: string,
+    @Body('avatar') avatar: string
   ) {
     const user = await this.authService.LoginWithFirebase(
       email,
       name,
       phone,
       avatar,
-      token,
+      token
     );
     return user;
   }
