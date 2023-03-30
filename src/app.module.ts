@@ -26,7 +26,7 @@ const MONGODBHOST =
     ProductModule,
     FeedsModule,
     CartItemModule,
-    MongooseModule.forRoot(MONGODBLOCAL),
+    MongooseModule.forRoot(MONGODBHOST),
     MongooseModule.forFeature([
       {
         name: 'user',

@@ -10,11 +10,16 @@ export interface IProduct extends mongoose.Document {
   effectiveDate: Date;
   expirationDate: Date;
   price: number;
-  quantity: number;
+  countInStock: number;
   isSpecial: boolean;
-
+  countSold: number;
   createdAt: Date;
   updatedAt: Date;
+  deleteInfo: {
+    user: mongoose.Schema.Types.ObjectId;
+    isDelete: boolean;
+    dateDelete: Date;
+  };
 }
 
 export interface IProductRO {

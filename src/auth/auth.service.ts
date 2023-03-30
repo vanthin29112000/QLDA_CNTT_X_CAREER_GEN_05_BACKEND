@@ -13,7 +13,7 @@ export class AuthService {
     if (!req.email_verified) {
       throw new HttpException(
         'Email chưa được xác thực vui lòng xác thực email của bạn',
-        400,
+        400
       );
     }
     const user = await this.authModel
@@ -63,11 +63,8 @@ export class AuthService {
 
     return {
       user: userTemp,
-<<<<<<< HEAD
       // token: JWT.sign({ email }, 'Ma bi mat', { expiresIn: '1d' }),
-=======
       token: JWT.sign({ email }, 'Ma bi mat', { expiresIn: '1d' })
->>>>>>> dev-dat
     };
   }
 

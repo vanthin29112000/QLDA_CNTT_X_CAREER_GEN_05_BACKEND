@@ -9,12 +9,8 @@ export class AuthController {
   @Post('/login')
   async LoginUser(
     @Body('password') password: string,
-<<<<<<< HEAD
     @Body('email') email: string,
-    @User() req,
-=======
-    @Body('email') email: string
->>>>>>> dev-dat
+    @User() req
   ) {
     const user = await this.authService.LoginUser(email, password, req);
     return { user };
