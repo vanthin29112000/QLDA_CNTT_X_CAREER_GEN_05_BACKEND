@@ -1,11 +1,5 @@
 import * as mongoose from 'mongoose';
-const ImageScheme = new mongoose.Schema({
-  mainImg: {
-    type: String
-    // require:true
-  },
-  moreImg: []
-});
+
 export const ProductScheme = new mongoose.Schema(
   {
     name: { type: String, required: true },
@@ -13,17 +7,19 @@ export const ProductScheme = new mongoose.Schema(
       type: String,
       required: false
     },
-    image: [ImageScheme],
+    images: {
+      type: Array
+    },
 
     category: Array,
     website: String,
     effectiveDate: {
-      type: Date
-      // require: true,
+      type: Date,
+      require: true
     },
     expirationDate: {
-      type: Date
-      // require: true,
+      type: Date,
+      require: true
     },
     price: {
       type: Number,

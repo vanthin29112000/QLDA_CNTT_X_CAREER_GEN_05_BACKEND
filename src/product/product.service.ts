@@ -28,16 +28,16 @@ export class ProductService {
     page <= 0 ? (page = 1) : page;
     const ProductSkip: number = (page - 1) * limit;
     const totalProduct = await this.productModel.find();
-    const data = await this.productModel.find().skip(ProductSkip).limit(limit);
-    const paginationInfo = {
-      totalProduct: totalProduct.length,
-      pageSize: limit,
-      currentPage: page
-    };
+    const data = await this.productModel.find();
+    // const paginationInfo = {
+    //   totalProduct: totalProduct.length,
+    //   pageSize: limit,
+    //   currentPage: page
+    // };
     return {
       status: 200,
-      data: data,
-      paginationInfo
+      data: data
+      // paginationInfo
     };
   }
 

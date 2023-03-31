@@ -3,7 +3,7 @@ import * as mongoose from 'mongoose';
 export interface IProduct extends mongoose.Document {
   name: string;
   desc: string;
-  image: { mainImg: string; moreImg: Array<string> };
+  images: Array<string>;
   brand: { name: string; img: string };
   category: Array<string>;
   website: string;
@@ -25,11 +25,11 @@ export interface IProduct extends mongoose.Document {
 export interface IProductRO {
   status: number;
   data: IProduct[];
-  paginationInfo: {
-    totalProduct: number;
-    currentPage: number;
-    pageSize: number;
-  };
+  // paginationInfo: {
+  //   totalProduct: number;
+  //   currentPage: number;
+  //   pageSize: number;
+  // };
 }
 export interface Pagination {
   page: number;
