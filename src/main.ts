@@ -10,7 +10,7 @@ async function bootstrap() {
 //   });
   app.enableCors(
     { 
-      origin: ['https://betterjavacode.com', 'https://www.google.com'],
+      origin: ['https://betterjavacode.com', 'http://localhost:3000'],
       methods: ['POST', 'PUT', 'DELETE', 'GET']
     }
   );
