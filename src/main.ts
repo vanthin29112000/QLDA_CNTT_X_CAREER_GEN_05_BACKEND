@@ -8,12 +8,12 @@ async function bootstrap() {
 //     methods: ['POST', 'PUT', 'DELETE', 'GET'],
 //     credentials: true,
 //   });
-
-
-    app.enableCors({
-        allowedHeaders:"*",
-        origin: "*"
-    });
+  app.enableCors(
+    { 
+      origin: ['https://betterjavacode.com', 'https://www.google.com'],
+      methods: ['POST', 'PUT', 'DELETE', 'GET']
+    }
+  );
 
   await app.listen(3003);
 }
