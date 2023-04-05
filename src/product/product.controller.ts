@@ -11,7 +11,7 @@ import {
   ParseIntPipe
 } from '@nestjs/common';
 import { ProductService } from './product.service';
-import { ValidationPipe } from 'src/shared/pipes/validator.pipe';
+import { ValidationPipe } from '../../src/shared/pipes/validator.pipe';
 
 @Controller('product')
 export class ProductController {
