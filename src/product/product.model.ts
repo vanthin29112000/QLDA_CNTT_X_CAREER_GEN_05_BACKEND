@@ -29,7 +29,8 @@ export const ProductScheme = new mongoose.Schema(
       type: Number,
       require: true
     },
-    isSpecial: { type: Boolean, default: false }
+    isSpecial: { type: Boolean, default: false },
+    isShowSlider: { type: Boolean, default: false }
   },
   { timestamps: true }
 );
