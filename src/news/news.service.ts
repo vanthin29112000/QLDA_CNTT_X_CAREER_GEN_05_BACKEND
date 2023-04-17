@@ -13,14 +13,14 @@ export class NewsService {
     title: string,
     type: string,
     status: string,
-    content: string,
+    content: string
   ) {
     const news = new this.newsModel({
       imgThumbnail: imgThumbnail,
       title: title,
       type: type,
       status: status,
-      content: content,
+      content: content
     });
 
     const result = await news.save();
@@ -32,6 +32,10 @@ export class NewsService {
   async GetAllNews() {
     const listNews = await this.newsModel.find();
     return listNews;
+  }
+
+  async getLatestNews() {
+    return await this.newsModel.find({ status: 'new' }).limit(5);
   }
 
   async GetNewID(id: string) {
@@ -54,7 +58,7 @@ export class NewsService {
     title: string,
     type: string,
     status: string,
-    content: string,
+    content: string
   ) {
     const newItem = await this.newsModel.findById(id);
 
