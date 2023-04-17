@@ -19,6 +19,10 @@ export class ProductService {
   async findProductSlider(): Promise<IProduct[]> {
     return await this.productModel.find({ isShowSlider: true }).limit(5);
   }
+
+  async findProductSpecialOffer(): Promise<IProduct[]> {
+    return await this.productModel.find({ price: 0 }).limit(5);
+  }
   async findOne(field: any): Promise<IProduct> {
     return await this.productModel.findOne({ ...field });
   }
