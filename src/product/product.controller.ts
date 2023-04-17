@@ -33,6 +33,10 @@ export class ProductController {
   async getProductSpecial() {
     return await this.productService.findProductSpecial();
   }
+  @Get('special-offer')
+  async getProductSpecialOffer() {
+    return await this.productService.findProductSpecialOffer();
+  }
   @Get(':id')
   async findProduct(@Param('id') id: string) {
     return await this.productService.findOne({ _id: id });
