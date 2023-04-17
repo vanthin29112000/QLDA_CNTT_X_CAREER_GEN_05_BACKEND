@@ -12,14 +12,14 @@ export class NewsController {
     @Body('title') title: string,
     @Body('type') type: string,
     @Body('status') status: string,
-    @Body('content') content: string,
+    @Body('content') content: string
   ) {
     const newItem = await this.newsService.AddNews(
       imgThumbnail,
       title,
       type,
       status,
-      content,
+      content
     );
     return newItem;
   }
@@ -27,6 +27,12 @@ export class NewsController {
   @Get('/')
   async GetAllNews() {
     const news = await this.newsService.GetAllNews();
+    return news;
+  }
+
+  @Get('/latest')
+  async GetLatestNews() {
+    const news = await this.newsService.getLatestNews();
     return news;
   }
 
@@ -49,7 +55,7 @@ export class NewsController {
     @Body('title') title: string,
     @Body('type') type: string,
     @Body('status') status: string,
-    @Body('content') content: string,
+    @Body('content') content: string
   ) {
     console.log('valueAfter', imgThumbnail, title, type, status, content);
 
@@ -59,7 +65,7 @@ export class NewsController {
       title,
       type,
       status,
-      content,
+      content
     );
 
     return news;
