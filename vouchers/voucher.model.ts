@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import * as mongoose from 'mongoose';
 import { Type } from 'class-transformer';
 import { Schema } from '@nestjs/mongoose';

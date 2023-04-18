@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { PaniController, VouchersController,GetByNameController} from './vouchers.controller'
 import { VouchersService } from './vouchers.service';
