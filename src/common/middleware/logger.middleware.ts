@@ -15,7 +15,6 @@ export class LoggerMiddleware implements NestMiddleware {
 
     if (authorization && authorization.startsWith('Bearer')) {
       const token = authorization.split(' ')[1];
-
       try {
         const resultVerify = JWT.verify(token, 'Ma bi mat');
         const user = await this.authModel

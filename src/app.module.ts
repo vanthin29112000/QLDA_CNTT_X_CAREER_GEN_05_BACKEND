@@ -41,11 +41,17 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(LoggerMiddleware)
-      .forRoutes({ path: 'auth', method: RequestMethod.GET });
+      .forRoutes(
+        { path: 'auth', method: RequestMethod.GET },
+        { path: 'auth', method: RequestMethod.PUT }
+      );
 
     consumer
       .apply(logger)
-      .exclude({ path: 'auth', method: RequestMethod.GET })
+      .exclude(
+        { path: 'auth', method: RequestMethod.GET },
+        { path: 'auth', method: RequestMethod.PUT }
+      )
       .forRoutes('auth');
 
     // consumer

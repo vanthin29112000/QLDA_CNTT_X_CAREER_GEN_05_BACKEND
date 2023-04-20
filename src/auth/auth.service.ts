@@ -2,6 +2,7 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from './auth.model';
+import { UpdateAddressInfo } from './dto/updateAddressInfo';
 const bcrypt = require('bcryptjs');
 const JWT = require('jsonwebtoken');
 
@@ -9,6 +10,7 @@ const JWT = require('jsonwebtoken');
 export class AuthService {
   // private auth: Auth[] = [];
   constructor(@InjectModel('user') private readonly authModel: Model<User>) {}
+
   async LoginUser(email: string, password: string, req) {
     if (!req.email_verified) {
       throw new HttpException(
@@ -80,7 +82,6 @@ export class AuthService {
       .select('-password ');
     const tokenSign = JWT.sign({ email }, 'Ma bi mat', { expiresIn: '1d' });
     if (user) {
-      // console.log(user, tokenSign);
       return { user: user, token: tokenSign };
     } else {
       const salt = await bcrypt.genSalt(10);
@@ -104,5 +105,49 @@ export class AuthService {
         token: tokenSign
       };
     }
+  }
+
+  async updateInfoUser(
+    email: string,
+    name: string,
+    phone: string,
+    password: string,
+    avatar: string,
+    gender: number,
+    nationality: string,
+    address: UpdateAddressInfo,
+    birthday: Date,
+    user: User
+  ) {
+    const userTemp = await this.authModel.findOne({ _id: user._id });
+    userTemp.email = email || userTemp.email;
+    userTemp.name = name || userTemp.name;
+    userTemp.phone = phone || userTemp.phone;
+    userTemp.avatar = avatar || userTemp.avatar;
+    userTemp.birthday = birthday || userTemp.birthday;
+    userTemp.nationality = nationality || userTemp.nationality;
+    if (gender >= -1 && gender <= 2) {
+      userTemp.gender = gender;
+    }
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      const passwordHash = await bcrypt.hash(password, salt);
+      userTemp.password = passwordHash;
+    }
+
+    if (address) {
+      if (
+        address.mainAddress !== '' &&
+        address.city.id !== '' &&
+        address.district.id !== '' &&
+        address.ward.id !== ''
+      ) {
+        userTemp.address = address;
+      }
+    }
+
+    const temp = userTemp.save();
+
+    return temp;
   }
 }
