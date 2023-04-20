@@ -1,6 +1,15 @@
-import { Controller, Post, Body, Get, Response } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Response,
+  Put,
+  ParseIntPipe
+} from '@nestjs/common';
 import { User } from './auth.decorator';
 import { AuthService } from './auth.service';
+import { UpdateAddressInfo } from './dto/updateAddressInfo';
 
 @Controller('auth')
 export class AuthController {
@@ -55,5 +64,34 @@ export class AuthController {
       token
     );
     return user;
+  }
+
+  @Put()
+  async updateInfoUser(
+    @Body('email') email: string,
+    @Body('name') name: string,
+    @Body('phone') phone: string,
+    @Body('password') password: string,
+    @Body('avatar') avatar: string,
+    @Body('nationality') nationality: string,
+    @Body('gender') gender: number,
+    @Body('address') address: UpdateAddressInfo,
+    @Body('birthday') birthday: Date,
+
+    @User() user
+  ) {
+    const userItem = await this.authService.updateInfoUser(
+      email,
+      name,
+      phone,
+      password,
+      avatar,
+      gender,
+      nationality,
+      address,
+      birthday,
+      user
+    );
+    return userItem;
   }
 }
