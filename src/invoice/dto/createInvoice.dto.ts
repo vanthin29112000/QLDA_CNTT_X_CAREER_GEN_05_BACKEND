@@ -1,6 +1,15 @@
 /* eslint-disable prettier/prettier */
 import { Type } from 'class-transformer';
-import { IsString, IsObject, IsArray, ValidateNested, IsNotEmpty, IsNumber } from 'class-validator';
+import {
+  IsString,
+  IsObject,
+  IsArray,
+  ValidateNested,
+  IsNotEmpty,
+  IsNumber,
+  isString,
+  IsDate
+} from 'class-validator';
 
 class OrderItemDto {
   @IsNotEmpty()
@@ -24,29 +33,37 @@ class OrderItemDto {
   @IsNumber()
   price: number;
 
-  @IsNotEmpty()
-  @IsNumber()
-  Money: number ;
-
+  // @IsNotEmpty()
+  // @IsString()
+  // code: string;
 }
-  
+
+class infoAddressDto {
+  @IsNotEmpty()
+  @IsArray()
+  name: string;
+  id: string;
+}
 
 class AddressDto {
   @IsNotEmpty()
-  @IsString()
-  city: string;
+  @ValidateNested()
+  @IsArray()
+  city: infoAddressDto;
+
+  @IsNotEmpty()
+  @ValidateNested()
+  @IsArray()
+  district: infoAddressDto;
+
+  @IsNotEmpty()
+  @ValidateNested()
+  @IsArray()
+  ward: infoAddressDto;
 
   @IsNotEmpty()
   @IsString()
-  district: string;
-
-  @IsNotEmpty()
-  @IsString()
-  state: string;
-
-  @IsNotEmpty()
-  @IsString()
-  ward: string;
+  mainAddress: string;
 }
 
 export class CreateInvoiceDto {
@@ -54,9 +71,9 @@ export class CreateInvoiceDto {
   @IsString()
   userID: string[];
 
-  @IsNotEmpty()
-  @IsString()
-  createdAt: string;
+  // @IsNotEmpty()
+  // @IsString()
+  // createdAt: Date;
 
   @IsNotEmpty()
   @ValidateNested()
@@ -64,7 +81,7 @@ export class CreateInvoiceDto {
   address: AddressDto;
 
   @IsNotEmpty()
-  @ValidateNested({ each: true })
+  // @ValidateNested({ each: true })
   @IsArray()
   orderItems: OrderItemDto[];
 
@@ -73,7 +90,18 @@ export class CreateInvoiceDto {
   statusOrder: string;
 
   @IsNotEmpty()
+  @IsString()
+  paymentType: string;
+
+  @IsNotEmpty()
   @IsNumber()
   Total: number;
 
+  @IsNotEmpty()
+  @IsDate()
+  effectiveDate: Date;
+
+  @IsNotEmpty()
+  @IsDate()
+  expirationDate: Date;
 }

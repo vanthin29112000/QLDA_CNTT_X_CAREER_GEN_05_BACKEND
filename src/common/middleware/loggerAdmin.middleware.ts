@@ -2,13 +2,15 @@ import { Injectable, NestMiddleware, HttpException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { NextFunction, Request, Response } from 'express';
 import { Model } from 'mongoose';
-import { User } from 'src/auth/auth.model';
+import { Staff } from 'src/staff/staff.model';
 const JWT = require('jsonwebtoken');
 
 @Injectable()
-export class LoggerMiddleware implements NestMiddleware {
+export class LoggerAdminMiddleware implements NestMiddleware {
   // constructor(private readonly authModel: Model<Auth>) {}
-  constructor(@InjectModel('user') private readonly authModel: Model<User>) {}
+  constructor(
+    @InjectModel('staff') private readonly StaffModel: Model<Staff>
+  ) {}
 
   async use(req: Request, res: Response, next: NextFunction) {
     const authorization = req.headers.authorization;
@@ -17,11 +19,9 @@ export class LoggerMiddleware implements NestMiddleware {
       const token = authorization.split(' ')[1];
       try {
         const resultVerify = JWT.verify(token, 'Ma bi mat');
-        const user = await this.authModel
-          .findOne({
-            email: resultVerify.email
-          })
-          .select('-password ');
+        const user = await this.StaffModel.findOne({
+          username: resultVerify.username
+        }).select('-password ');
 
         if (!user || user.block.isBLocking) {
           throw new HttpException('Không tìm thấy tài khoản này', 400);

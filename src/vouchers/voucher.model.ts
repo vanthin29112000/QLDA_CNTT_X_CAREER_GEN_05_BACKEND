@@ -2,7 +2,7 @@
 import * as mongoose from 'mongoose';
 import { Type } from 'class-transformer';
 import { Schema } from '@nestjs/mongoose';
-export type VoucherDocument = Voucher & Document
+export type VoucherDocument = Voucher & Document;
 export const VoucherSchema = new mongoose.Schema({
   createdAt: { type: String, required: false, default: Date().toString() },
   updatedAt: { type: String, required: false, default: 'no-updated verion' },
@@ -13,15 +13,15 @@ export const VoucherSchema = new mongoose.Schema({
   content: { type: String, required: false },
   effectiveDate: { type: String, required: false },
   expirationDate: { type: String, required: false },
-  price: { type: Number, required: false },
+  price: { type: Number, required: false }
 });
 @Schema()
-export class Voucher  {
+export class Voucher {
   save() {
     throw new Error('Method not implemented.');
   }
   createdAt: string;
-  name:string
+  name: string;
   id: string;
   updatedAt: string;
   hotline: string;
