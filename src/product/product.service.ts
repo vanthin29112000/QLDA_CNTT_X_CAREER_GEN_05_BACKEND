@@ -25,10 +25,7 @@ export class ProductService {
   }
   async findOne(field: any): Promise<IProduct> {
     const temp = await this.productModel.findOne({ ...field });
-    return {
-       status: 200,
-      data: temp,
-    }
+    return temp;
   }
 
   async findManyWithPagination(pagination: Pagination): Promise<IProductRO> {

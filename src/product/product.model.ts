@@ -10,7 +10,8 @@ export const ProductScheme = new mongoose.Schema(
     images: {
       type: Array
     },
-
+    countInStock: Number,
+    countSold: Number,
     category: Array,
     website: String,
     effectiveDate: {

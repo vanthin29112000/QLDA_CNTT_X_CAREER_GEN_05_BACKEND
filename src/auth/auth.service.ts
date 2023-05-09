@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException, Injectable, Param } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from './auth.model';
@@ -80,30 +80,34 @@ export class AuthService {
     const user = await this.authModel
       .findOne({ email: email })
       .select('-password ');
-    const tokenSign = JWT.sign({ email }, 'Ma bi mat', { expiresIn: '1d' });
-    if (user) {
-      return { user: user, token: tokenSign };
+    if (user.block.isBLocking) {
+      throw new HttpException('Tài khoản đã bị khóa', 400);
     } else {
-      const salt = await bcrypt.genSalt(10);
-      const passwordHash = await bcrypt.hash('123456789', salt);
-      const tempUser = new this.authModel({
-        email: email,
-        password: passwordHash,
-        role: 0,
-        name: name,
-        phone: phone,
-        avatar: avatar
-      });
-      const result = await tempUser.save();
+      const tokenSign = JWT.sign({ email }, 'Ma bi mat', { expiresIn: '1d' });
+      if (user) {
+        return { user: user, token: tokenSign };
+      } else {
+        const salt = await bcrypt.genSalt(10);
+        const passwordHash = await bcrypt.hash('123456789', salt);
+        const tempUser = new this.authModel({
+          email: email,
+          password: passwordHash,
+          role: 0,
+          name: name,
+          phone: phone,
+          avatar: avatar
+        });
+        const result = await tempUser.save();
 
-      const authTemp = await this.authModel
-        .findOne({ email: email })
-        .select('-password ');
+        const authTemp = await this.authModel
+          .findOne({ email: email })
+          .select('-password ');
 
-      return {
-        user: authTemp,
-        token: tokenSign
-      };
+        return {
+          user: authTemp,
+          token: tokenSign
+        };
+      }
     }
   }
 
@@ -149,5 +153,18 @@ export class AuthService {
     const temp = userTemp.save();
 
     return temp;
+  }
+
+  async getAllUser() {
+    const listUser = await this.authModel.find().select('-password ');
+    return listUser;
+  }
+
+  async blockingUser(id: string) {
+    const user = await this.authModel.findById(id).select('-password ');
+    user.block.isBLocking = !user.block.isBLocking;
+
+    await user.save();
+    return await this.authModel.find().select('-password ');
   }
 }

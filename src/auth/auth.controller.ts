@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body,
-  Get,
-  Response,
-  Put,
-  ParseIntPipe
-} from '@nestjs/common';
+import { Controller, Post, Body, Get, Put, Param } from '@nestjs/common';
 import { User } from './auth.decorator';
 import { AuthService } from './auth.service';
 import { UpdateAddressInfo } from './dto/updateAddressInfo';
@@ -93,5 +85,15 @@ export class AuthController {
       user
     );
     return userItem;
+  }
+
+  @Get('/all')
+  async getAllUser() {
+    return await this.authService.getAllUser();
+  }
+
+  @Post('/blocking/:id')
+  async blockingUser(@Param('id') id: string) {
+    return await this.authService.blockingUser(id);
   }
 }
