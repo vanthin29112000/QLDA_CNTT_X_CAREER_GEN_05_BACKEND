@@ -9,6 +9,7 @@ import {
   Delete,
   Query,
   UseInterceptors,
+  Put
 } from '@nestjs/common';
 import MongooseClassSerializerInterceptor from '../utils/mongooseClassSerializer.interceptor';
 import { Voucher as VoucherModel } from './voucher.model';
@@ -43,7 +44,7 @@ export class VouchersController {
     @Body('content') content: string,
     @Body('effectiveDate') effectiveDate: string,
     @Body('expirationDate') expirationDate: string,
-    @Body('price') price: number,
+    @Body('price') price: number
   ) {
     const generatedId = await this.vouchersService.insertVoucher(
       name,
@@ -53,10 +54,11 @@ export class VouchersController {
       content,
       effectiveDate,
       expirationDate,
-      price,
+      price
     );
     return { id: generatedId };
   }
+
   @Get()
   async getAllVouchers() {
     const vouchers = await this.vouchersService.getVouchers();
@@ -77,7 +79,7 @@ export class VouchersController {
     @Body('content') vouContent: string,
     @Body('effectiveDate') vouEfDate: string,
     @Body('expirationDate') vouExDate: string,
-    @Body('price') vouPrice: number,
+    @Body('price') vouPrice: number
   ) {
     vouUpAt = Date().toString();
     this.vouchersService.updateVoucher(
@@ -89,7 +91,7 @@ export class VouchersController {
       vouContent,
       vouEfDate,
       vouExDate,
-      vouPrice,
+      vouPrice
     );
     return null;
   }

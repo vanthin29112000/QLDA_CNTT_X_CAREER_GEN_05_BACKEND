@@ -8,7 +8,7 @@ import { Voucher } from './voucher.model';
 export class VouchersService {
   private vouchers: Voucher[] = [];
   constructor(
-    @InjectModel('Voucher') private readonly voucherModel: Model<Voucher>,
+    @InjectModel('Voucher') private readonly voucherModel: Model<Voucher>
   ) {}
   async insertVoucher(
     name: string,
@@ -18,7 +18,7 @@ export class VouchersService {
     content: string,
     effectiveDate: string,
     expirationDate: string,
-    price: number,
+    price: number
   ) {
     const newVoucher = new this.voucherModel({
       name,
@@ -28,7 +28,7 @@ export class VouchersService {
       content,
       effectiveDate,
       expirationDate,
-      price,
+      price
     });
     const result = await newVoucher.save();
     console.log(result);
@@ -48,7 +48,7 @@ export class VouchersService {
       content: vou.content,
       effectiveDate: vou.effectiveDate,
       expirationDate: vou.expirationDate,
-      price: vou.price,
+      price: vou.price
     }));
   }
 
@@ -65,11 +65,11 @@ export class VouchersService {
       content: voucher.content,
       effectiveDate: voucher.effectiveDate,
       expirationDate: voucher.expirationDate,
-      price: voucher.price,
+      price: voucher.price
     };
   }
   async getVoucherByName(voucherName: string) {
-    const Vouchers = await this.voucherModel.find({name:voucherName}).exec();
+    const Vouchers = await this.voucherModel.find({ name: voucherName }).exec();
     return Vouchers.map((vou) => ({
       createdAt: vou.createdAt,
       id: vou.id,
@@ -81,9 +81,9 @@ export class VouchersService {
       content: vou.content,
       effectiveDate: vou.effectiveDate,
       expirationDate: vou.expirationDate,
-      price: vou.price,
-  
-  }))};
+      price: vou.price
+    }));
+  }
 
   async updateVoucher(
     id: string,
@@ -94,7 +94,7 @@ export class VouchersService {
     content: string,
     effectiveDate: string,
     expirationDate: string,
-    price: number,
+    price: number
   ) {
     const updatedVoucher = await this.findVoucher(id);
     if (upAt) {
@@ -157,4 +157,4 @@ export class VouchersService {
     }
     return voucher;
   }
- }
+}

@@ -91,7 +91,14 @@ export class AppModule implements NestModule {
       .forRoutes(
         { path: 'staff', method: RequestMethod.GET },
         { path: 'auth/all', method: RequestMethod.GET },
-        { path: 'auth/blocking/:id', method: RequestMethod.POST }
+        { path: 'auth/blocking/:id', method: RequestMethod.POST },
+        { path: 'invoice/all', method: RequestMethod.GET },
+        { path: '/special/:id', method: RequestMethod.PUT },
+        { path: '/slider/:id', method: RequestMethod.PUT },
+        { path: '/slider/:id', method: RequestMethod.PUT },
+        { path: '/product', method: RequestMethod.POST },
+        { path: '/product/admin/:id', method: RequestMethod.GET },
+        { path: '/product/:id', method: RequestMethod.PUT }
       );
   }
 }

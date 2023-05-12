@@ -74,6 +74,11 @@ export class InvoicesService {
     return invoices;
   }
 
+  async getAllInvoices() {
+    const invoices = await this.invoiceModel.find().sort({ createdAt: -1 });
+    return invoices;
+  }
+
   async updateUsedVoucher(
     user: User,
     invoiceId: string,
@@ -127,19 +132,6 @@ export class InvoicesService {
     // invoice.orderItems[number - 1] = {};
     return invoice.save();
   }
-  // async getAmount(documentsToSkip = 0, limitOfDocuments?: number) {
-  //   const findQuery = this.invoiceModel
-  //     .find()
-  //     .skip(documentsToSkip)
-  //     .populate('createdAt');
-
-  //   if (limitOfDocuments) {
-  //     findQuery.limit(limitOfDocuments);
-  //   }
-  //   const results = await findQuery;
-
-  //   return { results };
-  // }
 
   private async findInvoice(id: string): Promise<Invoice> {
     let invoice;
