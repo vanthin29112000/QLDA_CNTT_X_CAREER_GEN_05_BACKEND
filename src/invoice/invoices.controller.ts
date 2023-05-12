@@ -34,6 +34,12 @@ export class InvoiceController {
     return invoices;
   }
 
+  @Get('/all')
+  async getAllInvoicesForAdmin() {
+    const invoices = await this.invoicesService.getAllInvoices();
+    return invoices;
+  }
+
   @Put()
   updateUsedVoucher(
     @User() user,

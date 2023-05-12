@@ -20,6 +20,10 @@ export interface IProduct extends mongoose.Document {
     isDelete: boolean;
     dateDelete: Date;
   };
+  isShowSlider: boolean;
+  isSlider: boolean;
+  userManual: string;
+  rules: string;
 }
 
 export interface IProductRO {

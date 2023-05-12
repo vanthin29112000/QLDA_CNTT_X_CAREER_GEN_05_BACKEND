@@ -4,8 +4,10 @@ import {
   Post,
   Body,
   Get,
+  Put,
   UsePipes,
   Param,
+  Delete,
   Query,
   DefaultValuePipe,
   ParseIntPipe
@@ -42,9 +44,68 @@ export class ProductController {
     return await this.productService.findOne({ _id: id });
   }
 
-  @UsePipes(new ValidationPipe())
+  @Get('admin/:id')
+  async findProductForAdmin(@Param('id') id: string) {
+    return await this.productService.findProductForAdmin(id);
+  }
+
+  @Put('/special/:id') async updateSpecialVoucher(
+    @Param('id') voucherID: string
+  ) {
+    return await this.productService.updateSpecialVoucher(voucherID);
+  }
+
+  @Put('/slider/:id') async updateSliderVoucher(
+    @Param('id') voucherID: string
+  ) {
+    return await this.productService.updateSliderVoucher(voucherID);
+  }
+
+  // @UsePipes(new ValidationPipe())
   @Post()
-  createProduct(@Body() data: CreateProductDto): any {
+  createProduct(@Body() data: CreateProductDto) {
     return this.productService.create(data);
+  }
+
+  @Put(':id')
+  updateVoucher(
+    @Param('id') id: string,
+    @Body('website') vouWebsite: string,
+    @Body('desc') desc: string,
+    @Body('effectiveDate') effectiveDate: Date,
+    @Body('expirationDate') expirationDate: Date,
+    @Body('price') price: number,
+    @Body('name') name: string,
+    @Body('website') website: string,
+
+    @Body('images') images: Array<string>,
+    @Body('countInStock') countInStock: number,
+    @Body('brand') brand: { name: string; img: string },
+    @Body('category') category: Array<string>,
+    @Body('rules') rules: string,
+    @Body('userManual') userManual: string,
+    @Body('code') code: Array<string>
+  ) {
+    return this.productService.updateVoucher(
+      id,
+      website,
+      desc,
+      effectiveDate,
+      expirationDate,
+      price,
+      images,
+      countInStock,
+      name,
+      brand,
+      category,
+      code,
+      rules,
+      userManual
+    );
+  }
+
+  @Delete(':id')
+  deleteProduct(@Param('id') id: string) {
+    return this.productService.deleteProduct(id);
   }
 }

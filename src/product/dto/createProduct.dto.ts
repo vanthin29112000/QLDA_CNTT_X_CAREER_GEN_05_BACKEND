@@ -11,6 +11,9 @@ export class CreateProductDto {
   readonly effectiveDate: Date;
   readonly expirationDate: Date;
   readonly price: number;
-  readonly quantity: number;
+  readonly countInStock: number;
   readonly isSpecial: boolean;
+  readonly userManual: string;
+  readonly rules: string;
+  readonly code: Array<string>;
 }

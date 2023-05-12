@@ -108,16 +108,26 @@ export class CartItemService {
 
   async formatData(cart, userId) {
     let shoppingCart = [];
+
+    let products = [];
     for (const product of cart.products) {
       const tempProduct = await this.productModel.findOne({
         _id: product.productId
       });
-      shoppingCart.push({
-        infoProduct: tempProduct,
-        quantity: product.quantity
-      });
-    }
 
+      if (!tempProduct.deleteInfo.isDelete) {
+        shoppingCart.push({
+          infoProduct: tempProduct,
+          quantity: product.quantity
+        });
+
+        products.push(product);
+      }
+    }
+    const tempCart = await this.cartItemModel.findOne({ userId: userId });
+    tempCart.products = products;
+
+    await tempCart.save();
     return {
       userID: userId,
       products: shoppingCart
